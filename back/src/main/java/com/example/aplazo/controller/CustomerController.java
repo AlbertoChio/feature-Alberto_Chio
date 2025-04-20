@@ -25,19 +25,19 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
+@Tag(name = "Customers", description = "Manage customers")
 @RestController
 @RequestMapping("/v1/customers")
 @RequiredArgsConstructor
-@Tag(name = "Customers", description = "Manage customers")
 public class CustomerController {
 
 	private final CustomerService customerService;
 
+	@Operation(summary = "Creates customer", operationId = "createCustomer")
 	@ApiResponses({ @ApiResponse(responseCode = "201", description = "Created"),
 			@ApiResponse(responseCode = "400", description = "Bad request", content = @Content(schema = @Schema(implementation = ErrorResponseDTO.class))),
 			@ApiResponse(responseCode = "429", description = "Too many requests", content = @Content(schema = @Schema(implementation = ErrorResponseDTO.class))),
@@ -58,7 +58,7 @@ public class CustomerController {
 		return ResponseEntity.created(null).body(customerService.createCustomer(customer));
 	}
 
-	@Operation(summary = "Get customer identified by `customerId`", operationId = "getCustomerById", security = @SecurityRequirement(name = "aplazoAuth"))
+	@Operation(summary = "Get customer identified by `customerId`", operationId = "getCustomerById")
 	@ApiResponses({ @ApiResponse(responseCode = "200", description = "Ok"),
 			@ApiResponse(responseCode = "400", description = "Bad request", content = @Content(schema = @Schema(implementation = ErrorResponseDTO.class))),
 			@ApiResponse(responseCode = "429", description = "Too many requests", content = @Content(schema = @Schema(implementation = ErrorResponseDTO.class))),

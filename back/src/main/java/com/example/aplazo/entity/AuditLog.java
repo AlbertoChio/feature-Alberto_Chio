@@ -1,6 +1,7 @@
 package com.example.aplazo.entity;
 
 import java.time.Instant;
+import java.time.OffsetDateTime;
 import java.util.UUID;
 
 import jakarta.persistence.Column;
@@ -45,5 +46,5 @@ public class AuditLog {
 	private String details;
 
 	@Column(name = "created_at", nullable = false, updatable = false)
-	private final Instant createdAt = Instant.now();
+	private final OffsetDateTime createdAt = OffsetDateTime.now();
 }

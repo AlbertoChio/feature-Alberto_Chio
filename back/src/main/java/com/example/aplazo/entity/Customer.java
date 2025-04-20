@@ -2,13 +2,17 @@ package com.example.aplazo.entity;
 
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
+import java.util.List;
 import java.util.UUID;
 
 import com.example.aplazo.dto.CustomerSaveDTO;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
@@ -84,5 +88,5 @@ public class Customer {
 				+ placeOfBirth + ", curp=" + curp + ", creditLineAmount=" + creditLineAmount
 				+ ", availableCreditLineAmount=" + availableCreditLineAmount + ", createdAt=" + createdAt + "]";
 	}
-	
+
 }

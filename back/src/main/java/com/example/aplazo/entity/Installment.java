@@ -1,11 +1,18 @@
 package com.example.aplazo.entity;
 
-import jakarta.persistence.*;
-import lombok.*;
-import org.hibernate.annotations.GenericGenerator;
-
 import java.time.LocalDate;
 import java.util.UUID;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name = "installments")
@@ -17,11 +24,11 @@ import java.util.UUID;
 public class Installment {
 
 	@Id
+	@GeneratedValue(generator = "UUID")
 	private UUID id;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "loan_id", nullable = false)
-	private Loan loan;
+	@Column(name = "loan_id", nullable = false, updatable = false)
+	private UUID loanId;
 
 	@Column(nullable = false)
 	private Double amount;
@@ -30,5 +37,12 @@ public class Installment {
 	private LocalDate scheduledPaymentDate;
 
 	@Column(nullable = false)
-	private String status; // NEXT, PENDING, ERROR
+	private String status;
+
+	@Override
+	public String toString() {
+		return "Installment [id=" + id + ", loanId=" + loanId + ", amount=" + amount + ", scheduledPaymentDate="
+				+ scheduledPaymentDate + ", status=" + status + "]";
+	}
+
 }
