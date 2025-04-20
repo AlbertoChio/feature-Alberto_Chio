@@ -6,13 +6,16 @@ CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 -- Customers table
 CREATE TABLE customers (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-    first_name TEXT NOT NULL,
-    last_name TEXT NOT NULL,
-    second_last_name TEXT NOT NULL,
+    first_name VARCHAR(100) NOT NULL,
+    last_name VARCHAR(100) NOT NULL,
+    second_last_name VARCHAR(100) NOT NULL,
     date_of_birth DATE NOT NULL CHECK (
         date_of_birth <= CURRENT_DATE - INTERVAL '18 years' AND
         date_of_birth >= CURRENT_DATE - INTERVAL '65 years'
     ),
+    gender VARCHAR(10) NOT NULL,
+    place_of_birth VARCHAR(255) NOT NULL,
+    curp VARCHAR(18) NOT NULL UNIQUE,
     credit_line_amount NUMERIC(12,2) NOT NULL CHECK (credit_line_amount > 0),
     available_credit_line_amount NUMERIC(12,2) NOT NULL CHECK (available_credit_line_amount >= 0),
     created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
