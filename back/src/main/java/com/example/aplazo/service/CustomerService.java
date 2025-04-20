@@ -1,6 +1,5 @@
 package com.example.aplazo.service;
 
-import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.security.core.Authentication;
