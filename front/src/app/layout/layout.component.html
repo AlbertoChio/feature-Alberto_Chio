@@ -1,18 +1,24 @@
-<aplz-ui-dashboard (logoClick)="clickLogo()">
+<aplz-ui-dashboard  (logoClick)="clickLogo()">
   <aplz-ui-dash-header>
     <nav
       class="flex flex-grow flex-shrink-0 justify-between items-center w-full"
     >
-      <h2 class="font-medium text-2xl">Layout Principal</h2>
+    <!--  -->
+    <ng-container *ngIf="(breadcrumb$ | async) as bread; else noBreadcrumb">
+      <h2 class="font-medium text-2xl">{{bread}}</h2>
+    </ng-container>
+    <ng-template #noBreadcrumb>
+      <h2 class="font-medium text-2xl text-gray-400">Home</h2>
+    </ng-template>
 
-      <button aplzButton aplzAppearance="basic" size="md" class="items-center">
+      <button (click)="logOut()" aplzButton aplzAppearance="basic" size="md" class="items-center">
         <span class="lowercase font-light"> Cerrar sesión </span>
       </button>
     </nav>
   </aplz-ui-dash-header>
 
   <aplz-ui-dash-sidebar>
-    <a aplzSidenavLink [routerLink]="[appRoutes.home]"> Inicio </a>
+    <a aplzSidenavLink [routerLink]="[appRoutes.home]"> Inicio  </a>
 
     <a aplzSidenavLink [routerLink]="[appRoutes.historial]"> Historial </a>
   </aplz-ui-dash-sidebar>
