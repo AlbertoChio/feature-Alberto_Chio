@@ -13,9 +13,9 @@ CREATE TABLE customers (
         date_of_birth <= CURRENT_DATE - INTERVAL '18 years' AND
         date_of_birth >= CURRENT_DATE - INTERVAL '65 years'
     ),
-    gender VARCHAR(10) NOT NULL,
-    place_of_birth VARCHAR(255) NOT NULL,
-    curp VARCHAR(18) NOT NULL UNIQUE,
+    gender VARCHAR(10),
+    place_of_birth VARCHAR(255),
+    curp VARCHAR(18),
     credit_line_amount NUMERIC(12,2) NOT NULL CHECK (credit_line_amount > 0),
     available_credit_line_amount NUMERIC(12,2) NOT NULL CHECK (available_credit_line_amount >= 0),
     created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
@@ -57,9 +57,9 @@ CREATE TABLE installments (
 CREATE TABLE audit_logs (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     user_id UUID REFERENCES users(id) ON DELETE SET NULL,
-    action TEXT NOT NULL CHECK (action IN ('CREATE', 'UPDATE')),
+    action TEXT NOT NULL CHECK (action IN ('CREATE', 'UPDATE', 'READ')),
     entity_type TEXT NOT NULL,
     entity_id UUID NOT NULL,
-    details JSONB, 
+    details TEXT, 
     created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
