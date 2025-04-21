@@ -1,5 +1,7 @@
 package com.example.aplazo.config;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.context.annotation.Bean;
@@ -37,29 +39,27 @@ public class SecurityConfig {
 
 	@Bean
 	SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-		return http.csrf(AbstractHttpConfigurer::disable).cors(AbstractHttpConfigurer::disable)
+		 return http.csrf(AbstractHttpConfigurer::disable).cors(cors -> cors.configurationSource(corsConfigurationSource()))
 				.authorizeHttpRequests(requests -> requests
 						.requestMatchers("/v1/auth/login", "/v1/auth/signup", "/swagger-ui/**", "/v3/api-docs",
 								"/v3/api-docs*/**")
 						.permitAll().requestMatchers("/v1/customers", "/v1/customers/").hasAnyAuthority("ROLE_CUSTOMER")
 						.anyRequest().authenticated())
 				.addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
-				.sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS)).build();
+				
+				.sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+						)
+				.build();
 	}
 
 	@Bean
 	CorsConfigurationSource corsConfigurationSource() {
-		CorsConfiguration configuration = new CorsConfiguration();
-
-		configuration.setAllowedOrigins(List.of("**"));
-		configuration.setAllowedMethods(List.of("GET", "POST"));
-		configuration.setAllowedHeaders(List.of("Authorization", "Content-Type"));
-
-		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-
-		source.registerCorsConfiguration("/**", configuration);
-
-		return source;
+	    CorsConfiguration configuration = new CorsConfiguration();
+	    configuration.applyPermitDefaultValues();
+	    configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS", "HEAD"));
+	    UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+	    source.registerCorsConfiguration("/**",configuration);
+	    return source;
 	}
 
 }
