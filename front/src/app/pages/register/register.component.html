@@ -1,69 +1,167 @@
-<aplz-ui-logo size="lg"></aplz-ui-logo>
+<section class="flex flex-col items-center justify-center min-h-screen px-4">
+  <aplz-ui-logo size="lg" class="mb-4"></aplz-ui-logo>
+  <header class="mb-6">
+    <h2 class="text-2xl font-bold text-center mb-2">Información Personal</h2>
+    <p class="text-gray-600 text-center mb-6">
+      Ayúdanos a completar tu información personal para verificar tu cuenta
+    </p>
+  </header>
 
-<form [formGroup]="form" (ngSubmit)="register()">
-  <div class="grid gap-6 mb-6 md:grid-cols-2">
-    <div>
-      <label for="username" class="block mb-2 text-sm font-medium text-dark">
-        Nombre(s)
-      </label>
-      <input
-        type="text"
-        id="firstname"
-        class="bg-dark-background border border-dark-secondary text-dark rounded-lg focus:ring-special-info focus:border-special-info block w-full p-2.5"
-        placeholder="Nombre(s)"
-        formControlName="firstName"
-      />
-    </div>
-
-    <div>
-      <label for="lastname" class="block mb-2 text-sm font-medium text-dark">
-        Apellido paterno
-      </label>
-
-      <input
-        type="text"
-        id="lastname"
-        class="bg-dark-background border border-dark-secondary text-dark rounded-lg focus:ring-special-info focus:border-special-info block w-full p-2.5"
-        placeholder="Apellido paterno"
-        formControlName="lastName"
-      />
-    </div>
-
-    <div>
-      <label for="lastname" class="block mb-2 text-sm font-medium text-dark">
-        Apellido materno
-      </label>
-
-      <input
-        type="text"
-        id="secondLastName"
-        class="bg-dark-background border border-dark-secondary text-dark rounded-lg focus:ring-special-info focus:border-special-info block w-full p-2.5"
-        placeholder="Apellido materno"
-        formControlName="secondLastName"
-      />
-    </div>
-
-    <div>
-      <label for="dateOfBirth" class="block mb-2 text-sm font-medium text-dark">
-        Fecha de nacimiento
-      </label>
-
-      <input
-        type="date"
-        id="dateOfBirth"
-        class="bg-dark-background border border-dark-secondary text-dark rounded-lg focus:ring-special-info focus:border-special-info block w-full p-2.5"
-        placeholder="Fecha de nacimiento"
-        formControlName="dateOfBirth"
-      />
-    </div>
-  </div>
-  <button
-    aplzButton
-    aplzAppearance="stroked"
-    aplzColor="dark"
-    size="md"
-    type="submit"
+  <form
+    [formGroup]="form"
+    (ngSubmit)="register()"
+    class="w-full max-w-md space-y-4"
   >
-    Crear cuenta
-  </button>
-</form>
+    <div class="grid gap-6 mb-6">
+      <div>
+        <label for="firstname" class="block mb-2 text-sm font-medium text-dark">
+          Nombre(s)
+        </label>
+        <input
+          type="text"
+          id="firstname"
+          class="[&.ng-invalid.ng-touched]:border-special-danger bg-dark-background border border-dark-secondary text-dark rounded-lg focus:ring-special-info focus:border-special-info block w-full p-2.5"
+          placeholder="Nombre(s)"
+          formControlName="firstName"
+        />
+        <div
+          *ngIf="firstName?.touched && firstName?.errors"
+          class="text-sm text-special-danger"
+        >
+          <p *ngIf="firstName?.errors?.['required']">Nombre es requerido.</p>
+        </div>
+      </div>
+
+      <div>
+        <label for="lastname" class="block mb-2 text-sm font-medium text-dark">
+          Apellido paterno
+        </label>
+
+        <input
+          type="text"
+          id="lastname"
+          class="[&.ng-invalid.ng-touched]:border-special-danger bg-dark-background border border-dark-secondary text-dark rounded-lg focus:ring-special-info focus:border-special-info block w-full p-2.5"
+          placeholder="Apellido paterno"
+          formControlName="lastName"
+        />
+        <div
+          *ngIf="lastName?.touched && lastName?.errors"
+          class="text-sm text-special-danger"
+        >
+          <p *ngIf="lastName?.errors?.['required']">
+            Apellido Paterno es requerido.
+          </p>
+        </div>
+      </div>
+
+      <div>
+        <label
+          for="secondLastName"
+          class="block mb-2 text-sm font-medium text-dark"
+        >
+          Apellido materno
+        </label>
+
+        <input
+          type="text"
+          id="secondLastName"
+          class="[&.ng-invalid.ng-touched]:border-special-danger bg-dark-background border border-dark-secondary text-dark rounded-lg focus:ring-special-info focus:border-special-info block w-full p-2.5"
+          placeholder="Apellido materno"
+          formControlName="secondLastName"
+        />
+        <div
+          *ngIf="secondLastName?.touched && secondLastName?.errors"
+          class="text-sm text-special-danger"
+        >
+          <p *ngIf="secondLastName?.errors?.['required']">
+            Apellido Materno es requerido.
+          </p>
+        </div>
+      </div>
+
+      <div class="flex space-x-4">
+        <div class="flex-1">
+          <label
+            for="dateOfBirth"
+            class="block mb-2 text-sm font-medium text-dark"
+          >
+            Fecha de nacimiento
+          </label>
+
+          <input
+            type="date"
+            id="dateOfBirth"
+            class="[&.ng-invalid.ng-touched]:border-special-danger bg-dark-background border border-dark-secondary text-dark rounded-lg focus:ring-special-info focus:border-special-info block w-full px-3 py-[10px] h-[44px] appearance-none"
+            placeholder="Fecha de nacimiento"
+            formControlName="dateOfBirth"
+          />
+          <div
+            *ngIf="dateOfBirth?.touched && dateOfBirth?.errors"
+            class="text-sm text-special-danger"
+          >
+            <p *ngIf="dateOfBirth?.errors?.['required']">
+              Fecha de nacimiento es requerido.
+            </p>
+            <p *ngIf="dateOfBirth?.errors?.['ageRange']">
+              La edad debe ser entre 18 y 65 años.
+            </p>
+          </div>
+        </div>
+        <div class="flex-1">
+          <label for="gender" class="block mb-2 text-sm font-medium text-dark"
+            >Sexo</label
+          >
+          <select
+            formControlName="gender"
+            class="[&.ng-invalid.ng-touched]:border-special-danger bg-dark-background border border-dark-secondary text-dark rounded-lg focus:ring-special-info focus:border-special-info block w-full px-3 py-[10px] h-[44px] appearance-none"
+          >
+            <option value="null">Selecciona</option>
+            <option value="Hombre">Masculino</option>
+            <option value="Mujer">Femenino</option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <label
+          for="gender"
+          class="[&.ng-invalid.ng-touched]:border-special-danger block mb-2 text-sm font-medium text-dark"
+          >Lugar de nacimiento</label
+        >
+        <select
+          formControlName="placeOfBirth"
+          class="[&.ng-invalid.ng-touched]:border-special-danger bg-dark-background border border-dark-secondary text-dark rounded-lg focus:ring-special-info focus:border-special-info block w-full px-3 py-[10px] h-[44px] appearance-none"
+        >
+          <option value="null">Selecciona</option>
+          <option value="CDMX">CDMX</option>
+          <option value="SONORA">Sonora</option>
+        </select>
+      </div>
+
+      <div>
+        <label for="curp" class="block mb-2 text-sm font-medium text-dark">
+          CURP
+        </label>
+        <input
+          type="text"
+          id="curp"
+          class="[&.ng-invalid.ng-touched]:border-special-danger bg-dark-background border border-dark-secondary text-dark rounded-lg focus:ring-special-info focus:border-special-info block w-full p-2.5"
+          placeholder="CURP"
+          formControlName="curp"
+        />
+      </div>
+    </div>
+    <button
+      aplzButton
+      aplzAppearance="stroked"
+      aplzColor="dark"
+      size="md"
+      type="submit"
+      [disabled]="!form.valid"
+    >
+      Crear cuenta
+    </button>
+  </form>
+</section>
+
+<pre>{{ form?.value | json }}</pre>
