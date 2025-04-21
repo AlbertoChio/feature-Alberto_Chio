@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  aplazo-app:
+    build: .
+    container_name: aplazo-spring
+    ports:
+      - "8080:8080"
+    depends_on:
+      - aplazo-db
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://localhost:5431/aplazo
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: 1234
+      SPRING_JPA_HIBERNATE_DDL_AUTO: none
+      SPRING_PROFILES_ACTIVE: docker
+    networks:
+      - aplazo-network
+
+  aplazo-db:
+    image: postgres:15
+    container_name: aplazo-postgres
+    ports:
+      - "5431:5432"
+    environment:
+      POSTGRES_DB: aplazo
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 1234
+    volumes:
+      - aplazo-db-data:/var/lib/postgresql/data
+    networks:
+      - aplazo-network
+
+volumes:
+  aplazo-db-data:
+
+networks:
+  aplazo-network:
