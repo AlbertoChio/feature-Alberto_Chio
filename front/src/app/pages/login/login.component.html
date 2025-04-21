@@ -1,39 +1,41 @@
-<aplz-ui-logo size="lg"></aplz-ui-logo>
 
-<form [formGroup]="form" (ngSubmit)="login()">
-  <div class="grid gap-6 mb-6 md:grid-cols-2">
-    <div>
-      <label for="username" class="block mb-2 text-sm font-medium text-dark">
-        Correo electrónico
-      </label>
-      <input
-        type="text"
-        id="username"
-        class="bg-dark-background border border-dark-secondary text-dark rounded-lg focus:ring-special-info focus:border-special-info block w-full p-2.5"
-        placeholder="my_example_username"
-        formControlName="username"
-      />
+<section class="flex flex-col items-center justify-center min-h-screen px-4">
+  <aplz-ui-logo size="lg" class="mb-6"></aplz-ui-logo>
+  <form [formGroup]="form" (ngSubmit)="login()">
+    <div class="grid gap-6 mb-6 md:grid-cols-2">
+      <div>
+        <label for="username" class="block mb-2 text-sm font-medium text-dark">
+          Correo electrónico
+        </label>
+        <input
+          type="text"
+          id="username"
+          class="bg-dark-background border border-dark-secondary text-dark rounded-lg focus:ring-special-info focus:border-special-info [&.ng-invalid.ng-touched]:border-special-danger block w-full p-2.5"
+          placeholder="my_example_username"
+          formControlName="username"
+        />
+      </div>
+      <div>
+        <label for="password" class="block mb-2 text-sm font-medium text-dark">
+          Password
+        </label>
+        <input
+          type="password"
+          id="password"
+          class="bg-dark-background border border-dark-secondary text-dark rounded-lg focus:ring-special-info focus:border-special-info block w-full p-2.5"
+          placeholder="•••••••••"
+          formControlName="password"
+        />
+      </div>
     </div>
-    <div>
-      <label for="password" class="block mb-2 text-sm font-medium text-dark">
-        Password
-      </label>
-      <input
-        type="password"
-        id="password"
-        class="bg-dark-background border border-dark-secondary text-dark rounded-lg focus:ring-special-info focus:border-special-info block w-full p-2.5"
-        placeholder="•••••••••"
-        formControlName="password"
-      />
-    </div>
-  </div>
-  <button
-    aplzButton
-    aplzAppearance="stroked"
-    aplzColor="dark"
-    size="md"
-    type="submit"
-  >
-    Entrar
-  </button>
-</form>
+    <button
+      aplzButton
+      aplzAppearance="stroked"
+      aplzColor="dark"
+      size="md"
+      type="submit"
+    >
+      Entrar
+    </button>
+  </form>
+</section>
